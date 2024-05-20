@@ -1,9 +1,10 @@
  import express from "express"
  import cors from "cors"
+ import axios from "axios";
  import mongoose from "mongoose"
 import food from "./Schema.js"
 import { config } from 'dotenv';
-
+config();
 
 
 const app = express()
@@ -16,48 +17,48 @@ const port = 5000;
 
 
 
-mongoose.connect("mongodb+srv://cyntra:cyntra@cluster0.ph7jfgq.mongodb.net/?retryWrites=true&w=majority", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, () => {
-    console.log("DB connected cynta")
-})
+// mongoose.connect("mongodb+srv://cyntra:cyntra@cluster0.ph7jfgq.mongodb.net/?retryWrites=true&w=majority", {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }, () => {
+//     console.log("DB connected cynta")
+// })
 
-//Routes post food item
-app.post("/food", (req, res) => {
-    const { Empname, Itemdesc, Price } = req.body
+// //Routes post food item
+// app.post("/food", (req, res) => {
+//     const { Empname, Itemdesc, Price } = req.body
     
-    const new_Date =new Date().toLocaleDateString();
-    const user1 = new food({
-        Empname, Itemdesc, Price, new_Date
-    })
-    user1.save(err => {
-        if (err) {
-            res.send(err)
-        } else {
-            res.send({ 'status': true, 'message': 'Success' });
-        }
-    })
-})
+//     const new_Date =new Date().toLocaleDateString();
+//     const user1 = new food({
+//         Empname, Itemdesc, Price, new_Date
+//     })
+//     user1.save(err => {
+//         if (err) {
+//             res.send(err)
+//         } else {
+//             res.send({ 'status': true, 'message': 'Success' });
+//         }
+//     })
+// })
 
-//Routes  food item
-app.get("/get/food", (req, res) => {
+// //Routes  food item
+// app.get("/get/food", (req, res) => {
 
-    food.find()
-        .then(data => {
-            res.send({ 'status': true, 'message': 'Success', 'data': data });
-            // res.status(200).json({
-            //     data
-            // });
-        })
-        .catch(err => {
-            console.log(err);
-            // res.status(500).json({
-            //     error: err
-            // })
-            res.send({ 'status': false, 'message': 'Something Went Wrong !', 'data': [] });
-        })
-})
+//     food.find()
+//         .then(data => {
+//             res.send({ 'status': true, 'message': 'Success', 'data': data });
+//             // res.status(200).json({
+//             //     data
+//             // });
+//         })
+//         .catch(err => {
+//             console.log(err);
+//             // res.status(500).json({
+//             //     error: err
+//             // })
+//             res.send({ 'status': false, 'message': 'Something Went Wrong !', 'data': [] });
+//         })
+// })
 
 app.post('/api/chat', async (req, res) => {
   const prompt = req.body.prompt;
