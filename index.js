@@ -3,7 +3,7 @@
  import mongoose from "mongoose"
 import food from "./Schema.js"
 import { config } from 'dotenv';
-config();
+
 
 
 const app = express()
